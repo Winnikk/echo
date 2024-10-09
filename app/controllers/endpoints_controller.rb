@@ -10,7 +10,10 @@ class EndpointsController < ApplicationController
 
   def create
     endpoint = Endpoint.new(endpoint_params)
-    return render json: endpoint, status: :created if endpoint.save
+    if endpoint.save
+      Rails.application.reload_routes!
+      return render json: endpoint, status: :created
+    end
 
     render json: { errors: endpoint.errors.full_messages }, status: :unprocessable_entity
   end
