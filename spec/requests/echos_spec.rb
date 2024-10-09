@@ -5,10 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Echos API', type: :request do
   describe 'GET /greeting' do
     context 'when the endpoint exists' do
-      before do
-        create(:endpoint)
-        Rails.application.reload_routes!
-      end
+      before { create(:endpoint) }
 
       it 'returns a successful response with the correct body and custom headers' do
         get '/greeting'
